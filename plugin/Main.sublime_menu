@@ -1,0 +1,13 @@
+[
+{
+    "id" : "liveCoding",
+    "caption": "Live Coding",
+    "children":
+    [
+    {
+        "caption" : "connect",
+        "command" : "live_coding"
+    }
+    ]
+}
+]

@@ -1,21 +1,38 @@
 # this file will be moved into the plugin
 
 import socket
+import threading
 
 command = None
 
 HOST = 'localhost'    # The remote host
 PORT = 8000              # The same port as used by the server
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.connect((HOST, PORT))
 
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((HOST, PORT))
+
+
+class Client:
+    def __init__(self):
+        pass
+
+
+def receiveData():
     while True:
-        command = input()
-        s.send(str.encode(command))
-        if command == 'STOP':
-            break
+        d = s.recv(1024)
+        print(d.decode())
 
-    s.close()
+
+t = threading.Thread(
+    None, receiveData, 't').start()
+
+while True:
+    command = input()
+    if command == 'STOP':
+        break
+    s.send(str.encode(command))
+
+s.close()
 
 
 '''
